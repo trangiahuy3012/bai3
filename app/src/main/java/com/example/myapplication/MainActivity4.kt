@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.ProfileActivity
 
 class MainActivity4 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,16 +15,11 @@ class MainActivity4 : AppCompatActivity() {
         var Login = findViewById<Button>(R.id.Login)
         Login.setOnClickListener{
             Login()
-
-//            var status = if(username.text.toString().equals("username@gmail.com")
-//                && password.text.toString().equals("123456"))"Login successful"
-//            else "login fail"
-//            Toast.makeText(this,status,Toast.LENGTH_SHORT).show()
         }
     }
     private fun Login(){
-        var username = findViewById<EditText>(R.id.username)
-        var password = findViewById<EditText>(R.id.password)
+        var username = findViewById<EditText>(R.id.edtEmail)
+        var password = findViewById<EditText>(R.id.edtPassword)
         if(username.text.toString().equals(Util.ACCOUNT) && password.text.toString().equals(Util.PASS_WORD)) {
             val builder = android.app.AlertDialog.Builder(this)
 
@@ -33,16 +29,16 @@ class MainActivity4 : AppCompatActivity() {
         } else {
             val builder = android.app.AlertDialog.Builder(this)
 
-            builder.setMessage("Login fail")
+            builder.setMessage("Login faild")
                 .setNegativeButton("Ok", { dialogInterface: DialogInterface, i: Int -> goHome()})
                 .show()
         }
     }
     private fun goHome() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MainActivity4::class.java))
     }
     private fun Continue() {
-        startActivity(Intent(this, MainActivity4::class.java))
+        startActivity(Intent(this, ProfileActivity::class.java))
     }
 
     object Util {

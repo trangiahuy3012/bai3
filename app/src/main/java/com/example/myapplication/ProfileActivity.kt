@@ -1,12 +1,13 @@
 package com.example.myapplication
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.myapplication.R
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var stringname: String
@@ -15,21 +16,27 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        val btnsave = findViewById<Button>(R.id.Save)
-        val name = findViewById<EditText>(R.id.Fullname)
-        val email= findViewById<EditText>(R.id.Email)
-        val phone = findViewById<EditText>(R.id.Phonenumber)
-        val txtname = findViewById<TextView>(R.id.textfullname)
-        val txtemail = findViewById<TextView>(R.id.textemail)
-        val txtphone = findViewById<TextView>(R.id.textphonenumber)
-        btnsave.setOnClickListener {
-            stringname = name.text.toString()
-            txtname.text = stringname
-            stringemail = email.text.toString()
-            txtemail.text = stringemail
-            stringphone = phone.text.toString()
-            txtphone.text = stringphone
-            Toast.makeText(this, "Save Successfully", Toast.LENGTH_LONG).show()
-        }
+        val fullNameTextView = findViewById<TextView>(R.id.Fullname)
+        val emailTextView = findViewById<TextView>(R.id.Email)
+        val phoneTextView = findViewById<TextView>(R.id.Phonenumber)
+        data class User(
+            val fullName: String,
+            val email: String,
+            val phoneNumber: String
+        )
+        val user = User("Huy Tran", "huy.tran@example.com", "0123456789")
+        fullNameTextView.text = user.fullName
+        emailTextView.text = user.email
+        phoneTextView.text = user.phoneNumber
+        val sharedPreferences = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("fullName", fullNameTextView.text.toString())
+        editor.putString("email", emailTextView.text.toString())
+        editor.putString("phoneNumber", phoneTextView.text.toString())
+
+        editor.apply()
+
     }
+
 }
